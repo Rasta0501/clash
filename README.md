@@ -120,9 +120,10 @@ experimental:
 #  - "user2:pass2"
 
 # # experimental hosts, support wildcard (e.g. *.clash.dev Even *.foo.*.example.com)
-# # static domain has a higher priority than wildcard domain (foo.example.com > *.example.com)
+# # static domain has a higher priority than wildcard domain (foo.example.com > *.example.com > .example.com)
 # hosts:
 #   '*.clash.dev': 127.0.0.1
+#   '.dev': 127.0.0.1
 #   'alpha.clash.dev': '::1'
 
 # dns:
@@ -209,6 +210,24 @@ proxies:
     # ws-path: /path
     # ws-headers:
     #   Host: v2ray.com
+  
+  - name: "vmess-http"
+    type: vmess
+    server: server
+    port: 443
+    uuid: uuid
+    alterId: 32
+    cipher: auto
+    # udp: true
+    # network: http
+    # http-opts:
+    #   # method: "GET"
+    #   # path:
+    #   #   - '/'
+    #   #   - '/video'
+    #   # headers:
+    #   #   Connection:
+    #   #     - keep-alive
 
   # socks5
   - name: "socks"
@@ -255,7 +274,7 @@ proxies:
     # skip-cert-verify: true
 
 proxy-groups:
-  # relay chains the proxies. proxies shall not contain a proxy-group. No UDP support.
+  # relay chains the proxies. proxies shall not contain a relay. No UDP support.
   # Traffic: clash <-> http <-> vmess <-> ss1 <-> ss2 <-> Internet
   - name: "relay"
     type: relay
